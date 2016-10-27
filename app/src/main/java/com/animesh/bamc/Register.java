@@ -1,10 +1,14 @@
 package com.animesh.bamc;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,6 +34,7 @@ public class Register extends AppCompatActivity {
     EditText name,mobile,email,password;
     Button signUp;
     ProgressDialog mProgress;
+    String emailUser,passUser,nameUser,phnoUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +90,44 @@ public class Register extends AppCompatActivity {
     }
 
     public void onSubmit(){
-        String emailUser,passUser,nameUser,phnoUser;
+
         emailUser=email.getText().toString();
         passUser=password.getText().toString();
         nameUser=name.getText().toString();
         phnoUser=mobile.getText().toString();
 
         if(check()){
-            new RegisterUser(emailUser,passUser,nameUser,phnoUser).execute();
+            //new RegisterUser(emailUser,passUser,nameUser,phnoUser).execute();
+            isOnline();
         }
     }
+
+    public void isOnline() {
+
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()
+                && cm.getActiveNetworkInfo().isAvailable()
+                && cm.getActiveNetworkInfo().isConnected())
+            new RegisterUser(emailUser,passUser,nameUser,phnoUser).execute();
+        else {
+            Log.v("NOTCONN","TRUE");
+            final Snackbar snackbar = Snackbar
+                    .make(email, "No Internet Connection", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("Retry", new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            isOnline();
+                        }
+
+                    });
+
+            snackbar.show();
+        }
+    }
+
+
+
 
     public void  clear(){
         email.setText("");

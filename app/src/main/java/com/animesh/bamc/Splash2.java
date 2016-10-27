@@ -15,12 +15,14 @@ public class Splash2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash2);
 
+        getSupportActionBar().setTitle("About the App");
+
         p2=(TextView)findViewById(R.id.page2);
 
         p2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(Splash2.this,Register.class));
+                startActivity(new Intent(Splash2.this,Disclaimer.class));
                 finish();
             }
         });

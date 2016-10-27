@@ -9,14 +9,64 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.Date;
+
 public class Splash1 extends AppCompatActivity {
 
     TextView p1;
+    Calendar c;
+    boolean started = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash1);
+
+
+        //Get today's date
+        c= java.util.Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        Date today = c.getTime();
+        long todayInMillis = c.getTimeInMillis();
+
+        //Get the event start date
+
+        int year = 2016;
+        int month = 10;
+        int dayOfMonth = 31;
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month-1);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        Date dateSpecifiedStart = c.getTime();
+
+       //Get the event end date
+
+        /*year = 2016;
+        month = 11;
+        dayOfMonth = 1;
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        Date dateSpecifiedEnd = c.getTime();*/
+
+        Log.v("TODAY",String.valueOf(today));
+        Log.v("STARTDATE",String.valueOf(dateSpecifiedStart));
+        if(today.before(dateSpecifiedStart)){
+           started = false;
+            Log.v("CHECKEVENT",String.valueOf(started));
+        }
+
+        else {
+           started = true;
+            Log.v("CHECKEVENT",String.valueOf(started));
+        }
+
+
+
         //Storing the information whether the user has used the app for the first time in Shared Preferences
         Boolean hasRun = getSharedPreferences("RUN",MODE_PRIVATE).getBoolean("isfirstrun",true);
         if(hasRun) {
@@ -37,8 +87,16 @@ public class Splash1 extends AppCompatActivity {
 
             //Read the name of the user from shared Preferences
             String name = getSharedPreferences("Name",MODE_PRIVATE).getString("name_of_user","");
+            Boolean bool = getSharedPreferences("Started",MODE_PRIVATE).getBoolean("event_start",false);
+            Intent i;
             //Pass the name of the user in the intent
-            Intent i = new Intent(Splash1.this,display_calorie.class);
+            if(started) {
+                        if(bool)
+                        i = new Intent(Splash1.this, MainActivity.class);
+                else
+                            i = new Intent(Splash1.this,WelcomeScreen.class);
+            } else
+                i = new Intent(Splash1.this,WelcomeScreen.class);
             i.putExtra("Name",name);
             startActivity(i);
             finish();

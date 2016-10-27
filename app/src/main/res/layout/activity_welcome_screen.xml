@@ -41,17 +41,34 @@
             android:textSize="20sp"/>
         </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/eventStatus"
+            android:text="The event starts on\n         Nov 1st"
+            android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
+            android:textSize="25sp"
+            android:textColor="@color/colorPrimary"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cnt"
         android:text="continue"
-        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
         android:textColor="@color/textButton"
         android:textSize="20sp"
         android:padding="10dp"
+        android:visibility="gone"
         android:layout_marginBottom="40dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_gravity="center"/>
+    </LinearLayout>
 
 </RelativeLayout>

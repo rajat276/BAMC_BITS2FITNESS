@@ -12,18 +12,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity android:name=".LoginActivity" />
         <activity android:name=".Register" />
         <activity android:name=".ApiFitData" />
-        <activity android:name=".display_calorie"></activity>
-        <activity android:name=".Splash1">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".display_calorie" />
+        <activity android:name=".Splash1" />
         <activity android:name=".Splash2" />
         <activity android:name=".WelcomeScreen" />
 
@@ -31,8 +24,32 @@
             android:name=".InternetReceiver"
             android:enabled="true"
             android:exported="false">
-            <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
         </receiver>
+
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LeaderboardActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.animesh.bamc.Leaderboardactivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Disclaimer" />
+        <activity android:name=".Honor_Code"></activity>
     </application>
 
 </manifest>

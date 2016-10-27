@@ -1,4 +1,24 @@
 <resources>
     <string name="app_name">BAMC</string>
     <string name="description"><b>BAMC</b>: <b>B</b>urn <b>A</b> <b>M</b>illion <b>C</b>alories !! \n\nA flagship program aimed at all the fitness freaks, BAMC is here to be a constant fixture in the BITSIAN Community.\n\nBe a part of this wonderful event.</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+
+    <string name="disclaimer">BITSAA, BITS2Fitness, and members of BAMC Organizing committee,
+               neither have the liability nor the responsibility towards any person or entity with respect to
+               any loss or damages arising to the participants in BAMC. BAMC is an event conducted by BITS Alumni
+               Association to promote importance of healthy lifestyle among BITSians across the globe. BITSAA, BITS2Fitness,
+               and members of BAMC Organizing committee are also not responsible for health, injuries or any other mishaps
+              that may happen to the participants as a result of their participation in BAMC. Please consult your physician
+              for any questions related to health and physical activity.
+    </string>
+
+    <string name="honorcode">Participants of BAMC undertake that they will not resort to any unfair means during
+    BAMC to report an increased calorie count.</string>
+
 </resources>

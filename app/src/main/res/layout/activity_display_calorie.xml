@@ -61,10 +61,7 @@
            android:textScaleX="0.8"
            android:textAlignment="center"/>
     </LinearLayout>
-
-
-
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -95,7 +92,7 @@
             android:drawableTop="@drawable/ic_history_white_24dp"
             />
 
-    </LinearLayout>
+    </LinearLayout>!-->
 
 
 
