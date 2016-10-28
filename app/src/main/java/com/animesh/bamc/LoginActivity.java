@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        setContentView(R.layout.activity_login);
 
         userName=(EditText)findViewById(R.id.username);
         passWord=(EditText)findViewById(R.id.password);
@@ -45,7 +45,11 @@ public class LoginActivity extends AppCompatActivity {
         register=(TextView)findViewById(R.id.Register);
         forgotPass=(TextView)findViewById(R.id.forgotPassword);
 
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarL);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Login");
+        }
         Drawable emailDrawable = getResources().getDrawable(R.drawable.ic_mail_outline_black_24dp);
         emailDrawable= DrawableCompat.wrap(emailDrawable);
         DrawableCompat.setTint(emailDrawable,getResources().getColor(R.color.drawIcon));

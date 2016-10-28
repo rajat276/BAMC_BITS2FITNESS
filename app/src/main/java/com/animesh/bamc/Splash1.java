@@ -5,16 +5,20 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.animesh.bamc.Interface.OnSwipeTouchListener;
 
 import java.util.Calendar;
 import java.util.Date;
 
 public class Splash1 extends AppCompatActivity {
 
-    TextView p1;
+    RelativeLayout relativeLayout;
     Calendar c;
     boolean started = false;
 
@@ -71,11 +75,11 @@ public class Splash1 extends AppCompatActivity {
         Boolean hasRun = getSharedPreferences("RUN",MODE_PRIVATE).getBoolean("isfirstrun",true);
         if(hasRun) {
             //app is running for the first time
-            p1 = (TextView) findViewById(R.id.page1);
-
-            p1.setOnClickListener(new View.OnClickListener() {
+            relativeLayout=(RelativeLayout)findViewById(R.id.s1relativeView);
+            relativeLayout.setOnTouchListener(new OnSwipeTouchListener(Splash1.this){
                 @Override
-                public void onClick(View view) {
+                public void onSwipeLeft() {
+                    super.onSwipeLeft();
                     startActivity(new Intent(Splash1.this, Splash2.class));
                     finish();
                 }

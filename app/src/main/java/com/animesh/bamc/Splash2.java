@@ -4,27 +4,31 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.animesh.bamc.Interface.OnSwipeTouchListener;
 
 public class Splash2 extends AppCompatActivity {
 
-    TextView p2;
+    RelativeLayout relativeLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash2);
 
-        getSupportActionBar().setTitle("About the App");
+        //getSupportActionBar().setTitle("About the App");
 
-        p2=(TextView)findViewById(R.id.page2);
-
-        p2.setOnClickListener(new View.OnClickListener() {
+        relativeLayout=(RelativeLayout)findViewById(R.id.s2relativeview);
+        relativeLayout.setOnTouchListener(new OnSwipeTouchListener(Splash2.this){
             @Override
-            public void onClick(View view) {
+            public void onSwipeLeft() {
+                super.onSwipeLeft();
                 startActivity(new Intent(Splash2.this,Disclaimer.class));
                 finish();
             }
         });
+
     }
 }

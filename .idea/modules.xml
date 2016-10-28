@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/BAMC.iml" filepath="$PROJECT_DIR$/BAMC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/BAMC_BITS2FITNESS.iml" filepath="$PROJECT_DIR$/BAMC_BITS2FITNESS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

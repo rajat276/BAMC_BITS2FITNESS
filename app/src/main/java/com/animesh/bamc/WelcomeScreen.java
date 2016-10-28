@@ -43,7 +43,7 @@ public class WelcomeScreen extends AppCompatActivity {
 
         int year = 2016;
         int month = 10;
-        int dayOfMonth = 31;
+        int dayOfMonth = 27;
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month-1);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);

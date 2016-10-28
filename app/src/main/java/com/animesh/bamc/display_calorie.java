@@ -4,6 +4,9 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,38 +47,50 @@ public class display_calorie extends AppCompatActivity {
     int date, month, setDate;
     String date_today = "";
     int click = 0;
-    LinkedHashMap<String, Integer> value = new LinkedHashMap<>();
+    LinkedHashMap<String, Integer> value;
     ProgressDialog mProgress;
     String name, email;
-
+    RecyclerView recyclerView;
     int today_calorie = 0;
+    HistoryAdapter historyAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_display_calorie);
-
+        setContentView(R.layout.history);
+/*
         prevDate = (TextView) findViewById(R.id.previousDate);
         currDate = (TextView) findViewById(R.id.currentDate);
         nextDate = (TextView) findViewById(R.id.nextDate);
-        calories = (TextView) findViewById(R.id.totalCalorie);
-        getSupportActionBar().setTitle("History");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        calories = (TextView) findViewById(R.id.totalCalorie);*/
+        recyclerView = (RecyclerView) findViewById(R.id.historyRecycler);
+        // ldAdapter =new LeaderBoardAdapter(this,ParticipantArray);
+        //recyclerView.setAdapter(ldAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarhis);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            getSupportActionBar().setTitle("History");
+        }
         //Get the value form the Home Page
-         value = MainActivity.value;
-
-        Calendar cal = Calendar.getInstance();
+        value = MainActivity.value;
+        historyAdapter=new HistoryAdapter(display_calorie.this);
+        recyclerView.setAdapter(historyAdapter);
+        /*Calendar cal = Calendar.getInstance();
         SimpleDateFormat s = new SimpleDateFormat("dd/MM");
         cal.add(Calendar.DAY_OF_YEAR, 0);
         date_today = s.format(new Date(cal.getTimeInMillis()));
 
         // used to set today's date
-        setDate(click);
+        //setDate(click);
         // check if its the first time that the app is running
         today_calorie = value.get(date_today);
         //update today's calories
-        //value.put(date_today, today_calorie);
-        calories.setText(String.valueOf(today_calorie));
+        value.put(date_today, today_calorie);*/
+
+        /*calories.setText(String.valueOf(today_calorie));
         prevDate.setOnClickListener(new View.OnClickListener() {
 
 
@@ -92,7 +107,7 @@ public class display_calorie extends AppCompatActivity {
                 click += 1;
                 setDate(click);
             }
-        });
+        });*/
     }
 
 

@@ -3,6 +3,7 @@ package com.animesh.bamc;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -18,8 +19,12 @@ public class Disclaimer extends AppCompatActivity {
 
         disclaimer= (WebView)findViewById(R.id.disclaimer);
         iAgree = (Button)findViewById(R.id.agree);
-
-        getSupportActionBar().setTitle("Disclaimer");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarD);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Disclaimer");
+        }
+        //getSupportActionBar().setTitle("Disclaimer");
 
 
         String text =  "<html><body style='margin:20;padding:60dp;'>"

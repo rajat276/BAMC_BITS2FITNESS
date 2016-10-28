@@ -435,7 +435,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //if the app is running for first time initialize the LinkedHashMap
         LinkedHashMap<String,Integer> initialMap = new LinkedHashMap<>();
-        initialMap.put("01/11",0);
+        initialMap.put("28/10",0);
         initialMap.put("02/11",0);
         initialMap.put("03/11",0);
         initialMap.put("04/11",0);
