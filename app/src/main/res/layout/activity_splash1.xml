@@ -39,9 +39,8 @@
         <ImageView
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:src="@drawable/basketball_final"
             android:layout_gravity="center"
-            android:id="@+id/imageView" />
+            android:id="@+id/ivsplash1" />
 
         <TextView
             android:layout_width="match_parent"

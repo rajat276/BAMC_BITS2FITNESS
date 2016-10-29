@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.animesh.bamc.Interface.OnSwipeTouchListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -75,6 +77,7 @@ public class Splash1 extends AppCompatActivity {
         Boolean hasRun = getSharedPreferences("RUN",MODE_PRIVATE).getBoolean("isfirstrun",true);
         if(hasRun) {
             //app is running for the first time
+            Picasso.with(Splash1.this).load(R.drawable.basketball_final).fit().centerInside().into((ImageView)findViewById(R.id.ivsplash1));
             relativeLayout=(RelativeLayout)findViewById(R.id.s1relativeView);
             relativeLayout.setOnTouchListener(new OnSwipeTouchListener(Splash1.this){
                 @Override

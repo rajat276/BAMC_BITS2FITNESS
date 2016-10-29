@@ -53,7 +53,7 @@ public class LeaderboardActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LeaderBoardAdapter ldAdapter;
     ProgressDialog mProgress;
-    String name;
+    String name,email;
     String filename = "myLeaderBoard";
     TextView rank;
     LinkedHashMap<String,String> savedLeaderBoard = new LinkedHashMap<>();
@@ -82,6 +82,7 @@ public class LeaderboardActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Leaderboard");
         }
         name = getSharedPreferences("Name",MODE_PRIVATE).getString("name_of_user","");
+        email= getSharedPreferences("EMAIL",MODE_PRIVATE).getString("email","");
         String rankUser  = getSharedPreferences("RANK",MODE_PRIVATE).getString("rank_of_user","");
         rank.setText(rankUser);
 
@@ -101,7 +102,7 @@ public class LeaderboardActivity extends AppCompatActivity {
 
         //If connected to internet update the leaderboard
         if(isOnline())
-       new  syncLeaderBoard().execute();
+            new  syncLeaderBoard().execute();
 
         else {
             // Not connected to Internet
@@ -257,12 +258,13 @@ public class LeaderboardActivity extends AppCompatActivity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if(String.valueOf(jsonObject.getString("name")).equalsIgnoreCase(name)){
+                    if(String.valueOf(jsonObject.getString("email")).equalsIgnoreCase(email)){
                         myRank=i;
                         getSharedPreferences("RANK", MODE_PRIVATE).edit().putString("rank_of_user",String.valueOf(myRank+1)).commit();
                         Log.v("MYRANK", String.valueOf(myRank));
                     }
-                    results.put(String.valueOf(jsonObject.getString("name")), String.valueOf(jsonObject.getString("total")));
+                    if(i<10)
+                        results.put(String.valueOf(jsonObject.getString("name")), String.valueOf(jsonObject.getString("total")));
                     //savedLeaderBoard.put(String.valueOf(jsonObject.getString("name")), String.valueOf(jsonObject.getString("total")));
                     //calories.add(jsonObject.getString("total"));
                     Log.v("LEADERB", String.valueOf(results.size()));
