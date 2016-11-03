@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     editor.putString("age", age);
                     editor.putInt("gender", gender);
 
-                    bmr= (long) (10*Long.parseLong(weight)+6.25*Long.parseLong(height)-5*Long.parseLong(age));
+                    bmr= (long) (10*Double.parseDouble(weight)+6.25*Double.parseDouble(height)-5*Double.parseDouble(age));
                     if(gender==0){
                         bmr=bmr+5;
                     }else {
