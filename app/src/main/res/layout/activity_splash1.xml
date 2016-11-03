@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="#F44336"
     android:id="@+id/s1relativeView"
-    tools:context="com.animesh.bamc.Splash1">
+    tools:context="com.bitsaa.bamc.Splash1">
 
     <LinearLayout
         android:layout_width="wrap_content"

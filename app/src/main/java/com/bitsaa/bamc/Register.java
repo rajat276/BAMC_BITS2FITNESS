@@ -1,4 +1,4 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.app.ProgressDialog;
 import android.content.Context;

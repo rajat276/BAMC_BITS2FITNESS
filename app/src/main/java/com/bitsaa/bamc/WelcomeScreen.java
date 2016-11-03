@@ -1,7 +1,6 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

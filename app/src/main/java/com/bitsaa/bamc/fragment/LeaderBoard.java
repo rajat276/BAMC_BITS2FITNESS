@@ -1,4 +1,4 @@
-package com.animesh.bamc.fragment;
+package com.bitsaa.bamc.fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,9 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.animesh.bamc.Adaptors.LeaderBoardAdapter;
-import com.animesh.bamc.Interface.Participant_Details;
-import com.animesh.bamc.R;
+import com.bitsaa.bamc.Adaptors.LeaderBoardAdapter;
+import com.bitsaa.bamc.Interface.Participant_Details;
+import com.bitsaa.bamc.R;
 
 import java.util.ArrayList;
 

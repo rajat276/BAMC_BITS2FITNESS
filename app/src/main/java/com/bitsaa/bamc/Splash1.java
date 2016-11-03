@@ -1,18 +1,13 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.animesh.bamc.Interface.OnSwipeTouchListener;
+import com.bitsaa.bamc.Interface.OnSwipeTouchListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;

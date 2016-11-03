@@ -1,4 +1,4 @@
-package com.animesh.bamc.Interface;
+package com.bitsaa.bamc.Interface;
 
 /**
  * Created by Rajat Jain on 28-10-2016.

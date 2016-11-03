@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.animesh.bamc.Register">
+    tools:context="com.bitsaa.bamc.Register">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

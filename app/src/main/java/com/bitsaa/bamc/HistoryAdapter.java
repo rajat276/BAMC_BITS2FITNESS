@@ -1,7 +1,6 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,17 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.animesh.bamc.R;
 
+import com.bitsaa.bamc.Interface.RecycleClickListener;
 
-import com.animesh.bamc.Interface.RecycleClickListener;
-
-import java.security.Key;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * Created by Animesh on 10/19/2016.
@@ -27,7 +22,7 @@ import java.util.List;
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHolder> {
     private static final String TAG ="HistoryAdaptor" ;
     LinkedHashMap<String, Integer> value = new LinkedHashMap<>();
-    String key[]={"28/10",
+    String key[]={
             "02/11",
             "03/11",
             "04/11",
@@ -40,7 +35,9 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.MyViewHo
             "11/11",
             "12/11",
             "13/11",
-            "14/11"};
+            "14/11",
+            "15/11",
+            "16/11"};
     public LayoutInflater inflater;
     RecycleClickListener clickListener;
 

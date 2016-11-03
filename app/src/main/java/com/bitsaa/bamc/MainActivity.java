@@ -1,6 +1,5 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
-import android.animation.ObjectAnimator;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,10 +26,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +42,6 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.result.DailyTotalResult;
@@ -101,11 +98,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static LinkedHashMap<String,Integer> value = new LinkedHashMap<>();
     int today_calorie= 0;
     ProgressDialog mProgress;
+    int hour;
+    long bmr;
+    CardView cardViewCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         calories=(TextView)findViewById(R.id.tvccal);
         steps=(TextView)findViewById(R.id.tvstep);
         addtoinfo=(TextView)findViewById(R.id.tvadd2);
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AddhnW=(Button)findViewById(R.id.badd);
         AddhnW.setOnClickListener(this);
         cardHnW=(CardView)findViewById(R.id.card_view_hnw);
+        cardViewCount=(CardView)findViewById(R.id.card_viewcount);
         donutProgress = (DonutProgress) findViewById(R.id.donut_progress);
        // donutProgress.setProgress(0);
         isInFront=true;
@@ -285,25 +287,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         final EditText mheight=(EditText)alertLayout.findViewById(R.id.etheight);
         final EditText mWeight=(EditText)alertLayout.findViewById(R.id.etweight);
-
-        alert.setTitle("Height and Weight");
+        final EditText mAge=(EditText)alertLayout.findViewById(R.id.etAge);
+        final Spinner mGender=(Spinner)alertLayout.findViewById(R.id.gender);
+        alert.setTitle("Info");
         final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         final String height= sharedPref.getString("height",null);
         final String weight = sharedPref.getString("weight",null);
-        if (height != null && weight!= null )
+        final String age = sharedPref.getString("age",null);
+        final int gender = sharedPref.getInt("gender",-1);
+        if (height != null && weight!= null && age !=null && gender>-1)
         {
             mheight.setText(height);
             mWeight.setText(weight);
+            mAge.setText(age);
+            mGender.setSelection(gender);
         }
         // this is set the view from XML inside AlertDialog
         alert.setView(alertLayout);
         // disallow cancel of AlertDialog on click of back button and outside touch
-        alert.setCancelable(true);
+        alert.setCancelable(false);
         alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //Toast.makeText(getBaseContext(), "Cancel clicked", Toast.LENGTH_SHORT).show();
+                dialog.cancel();
                 onResume();
             }
         });
@@ -314,18 +322,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onClick(DialogInterface dialog, int which) {
                 String height=mheight.getText().toString();
                 String weight=mWeight.getText().toString();
-                if(TextUtils.isEmpty(height)||TextUtils.isEmpty(weight)) {
+                String age = mAge.getText().toString();
+                int gender = mGender.getSelectedItemPosition();
+                if(TextUtils.isEmpty(height)||TextUtils.isEmpty(weight)||TextUtils.isEmpty(age)||gender<0) {
+                    Log.e(TAG,"empty");
                     if (TextUtils.isEmpty(height)) {
                         mheight.setError("Enter height");
                     }
                     if (TextUtils.isEmpty(weight)) {
                         mWeight.setError("Enter weight");
                     }
+                    if (TextUtils.isEmpty(age)) {
+                        mAge.setError("Enter Age");
+                        //Toast.makeText(MainActivity.this,"Enter Age",Toast.LENGTH_LONG).show();
+                    }
+                    if (gender<0) {
+                        Toast.makeText(MainActivity.this,"Select Gender",Toast.LENGTH_LONG).show();
+                    }
+
                 }else {
-                    Toast.makeText(getBaseContext(), weight + " " + height, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getBaseContext(), "saved", Toast.LENGTH_LONG).show();
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putString("height", height);
                     editor.putString("weight", weight);
+                    editor.putString("age", age);
+                    editor.putInt("gender", gender);
+
+                    bmr= (long) (10*Long.parseLong(weight)+6.25*Long.parseLong(height)-5*Long.parseLong(age));
+                    if(gender==0){
+                        bmr=bmr+5;
+                    }else {
+                        bmr=bmr-161;
+                    }
+                    editor.putLong("bmr", bmr);
+                    Log.e(TAG,"bmr="+bmr);
                     editor.commit();
                     onResume();
 
@@ -347,17 +377,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             final SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
             final String height= sharedPref.getString("height",null);
             final String weight = sharedPref.getString("weight",null);
-            addtotitle.setText("Height and Weight");
-            String temp="   Height: "+height+" cm"+"\n"+"   Weight: "+weight+" kg";
+            String age = sharedPref.getString("age",null);
+            int gender = sharedPref.getInt("gender",-1);
+            addtotitle.setText("Info");
+            String gender_string[]=getResources().getStringArray(R.array.Gender_arrays);
+            String temp="   Height: "+height+" cm"+"\n"+"   Weight: "+weight+" kg"+"\n"+"   Age: "+age+" years"+"\n" +"   Gender: "+gender_string[gender];
             addtoinfo.setText(temp);
             AddhnW.setText("Change");
+            cardViewCount.setVisibility(View.VISIBLE);
+            buildFitnessClient();
         }else {
             addtotitle.setText("To get Started");
-            addtoinfo.setText("Add your Height and Weight");
+            addtoinfo.setText("Add your Height,\nWeight,Age and Gender");
             AddhnW.setText("Add");
 
         }
-        buildFitnessClient();
+
     }
 
     @Override
@@ -435,7 +470,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //if the app is running for first time initialize the LinkedHashMap
         LinkedHashMap<String,Integer> initialMap = new LinkedHashMap<>();
-        initialMap.put("28/10",0);
         initialMap.put("02/11",0);
         initialMap.put("03/11",0);
         initialMap.put("04/11",0);
@@ -449,7 +483,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         initialMap.put("12/11",0);
         initialMap.put("13/11",0);
         initialMap.put("14/11",0);
-
+        initialMap.put("15/11",0);
+        initialMap.put("16/11",0);
 
         //write the LinkedHashMap into File
         try {
@@ -566,6 +601,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 dumpDataSet(dailyTotalResult.getTotal());
             }
         });
+       /* DataReadRequest readRequest = new DataReadRequest.Builder()
+                .aggregate(DataType.TYPE_BASAL_METABOLIC_RATE, DataType.AGGREGATE_BASAL_METABOLIC_RATE_SUMMARY)
+                .bucketByActivityType(1, TimeUnit.SECONDS)
+                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
+                .build();
+        Fitness.HistoryApi.readData(mClient,readRequest).setResultCallback(new ResultCallback<DataReadResult>() {
+            @Override
+            public void onResult(@NonNull DataReadResult dataReadResult) {
+                dumpDataSet(dataReadResult.getDataSet(DataType.TYPE_BASAL_METABOLIC_RATE));
+
+            }
+        });*/
+   /*     Fitness.HistoryApi.readDailyTotal(mClient,DataType.AGGREGATE_BASAL_METABOLIC_RATE_SUMMARY).setResultCallback(new ResultCallback<DailyTotalResult>() {
+            @Override
+            public void onResult(@NonNull DailyTotalResult dailyTotalResult) {
+                dumpDataSet(dailyTotalResult.getTotal());
+            }
+        });*/
     }
     private void dumpDataSet(DataSet dataSet) {
         Log.e(TAG, "Data returned for Data type: " + dataSet.getDataType().getName());
@@ -583,10 +636,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     float temp= Float.valueOf(dp.getValue(field).toString());
                     int inttemp= 0;
                     inttemp=(int) temp;
-
-                    calories.setText(String.valueOf(inttemp));
-                    getSharedPreferences("CALORIES", MODE_PRIVATE).edit().putString("calories",String.valueOf(inttemp)).commit();
-                    today_calorie= inttemp;
+                    SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                    long bmr= sharedPref.getLong("bmr",0);
+                    int hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)-1;
+                    float ratio=(float)hour/24;
+                    double nbmr=ratio*bmr;
+                    double inactive;
+                    double active;
+                    if (nbmr>inttemp){
+                        inactive=inttemp-10;
+                        active=10;
+                    }else{
+                        double log=Math.log10(inttemp-nbmr);
+                        inactive=  nbmr-(log)*inttemp*0.01*(log);
+                        active=inttemp-inactive;
+                    }
+                    int intactive= 0;
+                    intactive=(int) active;
+                    calories.setText(String.valueOf(intactive));
+                    getSharedPreferences("CALORIES", MODE_PRIVATE).edit().putString("calories",String.valueOf(intactive)).commit();
+                    today_calorie= intactive;
                     value.put(date_today,today_calorie);
                 }else {
                     steps.setText(dp.getValue(field).toString());

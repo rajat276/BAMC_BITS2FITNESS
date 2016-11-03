@@ -21,4 +21,9 @@
     <string name="honorcode">Participants of BAMC undertake that they will not resort to any unfair means during
     BAMC to report an increased calorie count.</string>
 
+    <string-array name="Gender_arrays">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+    <string name="Gender_prompt">Select Gender</string>
 </resources>

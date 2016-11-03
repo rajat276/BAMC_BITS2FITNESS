@@ -1,4 +1,4 @@
-package com.animesh.bamc.Adaptors;
+package com.bitsaa.bamc.Adaptors;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.animesh.bamc.R;
+import com.bitsaa.bamc.R;
 
-import com.animesh.bamc.Interface.Participant_Details;
-import com.animesh.bamc.Interface.RecycleClickListener;
+import com.bitsaa.bamc.Interface.Participant_Details;
+import com.bitsaa.bamc.Interface.RecycleClickListener;
 
 import java.util.List;
 

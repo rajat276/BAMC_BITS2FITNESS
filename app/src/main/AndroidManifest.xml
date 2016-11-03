@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.animesh.bamc">
+    package="com.bitsaa.bamc">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -12,27 +12,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".Register" />
-        <activity android:name=".ApiFitData" />
-        <activity android:name=".display_calorie" />
-        <activity android:name=".Splash1" />
-        <activity android:name=".Splash2" />
-        <activity android:name=".WelcomeScreen" />
+        <activity android:name="com.bitsaa.bamc.LoginActivity" />
+        <activity android:name="com.bitsaa.bamc.Register" />
+        <activity android:name="com.bitsaa.bamc.ApiFitData" />
+        <activity android:name="com.bitsaa.bamc.display_calorie" />
+        <activity android:name="com.bitsaa.bamc.Splash1" />
+        <activity android:name="com.bitsaa.bamc.Splash2" />
+        <activity android:name="com.bitsaa.bamc.WelcomeScreen" />
 
         <receiver
-            android:name=".InternetReceiver"
+            android:name="com.bitsaa.bamc.InternetReceiver"
             android:enabled="true"
             android:exported="false">
             <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
         </receiver>
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.bitsaa.bamc.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".LeaderboardActivity"
+            android:name="com.bitsaa.bamc.LeaderboardActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -41,15 +41,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Splash">
+        <activity android:name="com.bitsaa.bamc.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Disclaimer" />
-        <activity android:name=".Honor_Code"></activity>
+        <activity android:name="com.bitsaa.bamc.Disclaimer" />
+        <activity android:name="com.bitsaa.bamc.Honor_Code"></activity>
     </application>
 
 </manifest>

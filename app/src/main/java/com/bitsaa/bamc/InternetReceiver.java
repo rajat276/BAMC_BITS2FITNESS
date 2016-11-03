@@ -1,4 +1,4 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

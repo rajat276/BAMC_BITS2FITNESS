@@ -1,4 +1,4 @@
-package com.animesh.bamc;
+package com.bitsaa.bamc;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,17 +12,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.animesh.bamc.Adaptors.LeaderBoardAdapter;
-import com.animesh.bamc.Interface.Participant_Details;
+import com.bitsaa.bamc.Adaptors.LeaderBoardAdapter;
+import com.bitsaa.bamc.Interface.Participant_Details;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,15 +29,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.StreamCorruptedException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import android.os.AsyncTask;
 import java.util.LinkedHashMap;
 
@@ -57,6 +52,8 @@ public class LeaderboardActivity extends AppCompatActivity {
     String filename = "myLeaderBoard";
     TextView rank;
     LinkedHashMap<String,String> savedLeaderBoard = new LinkedHashMap<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,8 +202,9 @@ public class LeaderboardActivity extends AppCompatActivity {
 
             int i = 0;
             //Log.v("LEADERB1", String.valueOf(sValues.size()));
-            for (LinkedHashMap.Entry<String, String> entry : sValues.entrySet()) {
-                String key = entry.getKey();
+            for (LinkedHashMap.Entry<String,String> entry : sValues.entrySet()) {
+                String key= entry.getKey().split("_")[1];
+
                 Log.v("LEADERB2",key);
                 String value = entry.getValue();
                 Log.v("LEADERB2",value);
@@ -244,9 +242,10 @@ public class LeaderboardActivity extends AppCompatActivity {
             mProgress.show();
         }
 
-        public LinkedHashMap<String,String> getJSONResults(String s) {
+        public LinkedHashMap<String, String> getJSONResults(String s) {
             int myRank=0;
             LinkedHashMap<String, String> results = new LinkedHashMap<>();
+            //LinkedHashMap<String,String> email_name = new LinkedHashMap<>();
 
             JSONArray jsonArray = null;
             try {
@@ -264,7 +263,9 @@ public class LeaderboardActivity extends AppCompatActivity {
                         Log.v("MYRANK", String.valueOf(myRank));
                     }
                     if(i<10)
-                        results.put(String.valueOf(jsonObject.getString("name")), String.valueOf(jsonObject.getString("total")));
+                        //email_name.put(jsonObject.getString("email"),jsonObject.getString("name"));
+                        Log.v("MYDATA",jsonObject.getString("email")+"_"+jsonObject.getString("name"));
+                    results.put(jsonObject.getString("email")+"_"+jsonObject.getString("name"), String.valueOf(jsonObject.getString("total")));
                     //savedLeaderBoard.put(String.valueOf(jsonObject.getString("name")), String.valueOf(jsonObject.getString("total")));
                     //calories.add(jsonObject.getString("total"));
                     Log.v("LEADERB", String.valueOf(results.size()));
@@ -274,6 +275,8 @@ public class LeaderboardActivity extends AppCompatActivity {
                     Log.v("Error", String.valueOf(i));
                 }
             }
+
+            Log.v("DATA",String.valueOf(results));
             return results;
         }
 
